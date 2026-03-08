@@ -2,6 +2,7 @@ import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/AppSidebar";
 import { useAuth } from "@/contexts/AuthContext";
 import NotificationBell from "@/components/NotificationBell";
+import UserProfileDropdown from "@/components/UserProfileDropdown";
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   const { isDemo } = useAuth();
