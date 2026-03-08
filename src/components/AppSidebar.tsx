@@ -9,7 +9,7 @@ import {
   Moon,
   ClipboardList,
   MessageSquare,
-  Star,
+  Bell,
 } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 import { useLocation } from "react-router-dom";
@@ -44,6 +44,7 @@ const studentNav = [
   { title: "Events", url: "/student/events", icon: CalendarDays },
   { title: "Clubs", url: "/student/clubs", icon: Users },
   { title: "My Registrations", url: "/student/registrations", icon: ClipboardList },
+  { title: "Notifications", url: "/student/notifications", icon: Bell },
   { title: "Profile", url: "/student/profile", icon: GraduationCap },
 ];
 
