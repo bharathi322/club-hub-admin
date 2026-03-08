@@ -76,7 +76,7 @@ const EventsTable = () => {
 
   const filteredEvents = useMemo(() => {
     if (!events) return [];
-    return events.filter((e) => {
+    let result = events.filter((e) => {
       if (search && !e.name.toLowerCase().includes(search.toLowerCase()) && !e.club.toLowerCase().includes(search.toLowerCase())) return false;
       if (clubFilter !== "all" && e.club !== clubFilter) return false;
       if (statusFilter !== "all" && e.status !== statusFilter) return false;
@@ -84,7 +84,24 @@ const EventsTable = () => {
       if (dateTo && e.date > format(dateTo, "yyyy-MM-dd")) return false;
       return true;
     });
-  }, [events, search, clubFilter, statusFilter, dateFrom, dateTo]);
+    if (sortKey) {
+      result = [...result].sort((a, b) => {
+        let aVal = a[sortKey] ?? "";
+        let bVal = b[sortKey] ?? "";
+        if (sortKey === "rating") {
+          const aNum = parseFloat(String(aVal)) || 0;
+          const bNum = parseFloat(String(bVal)) || 0;
+          return sortDir === "asc" ? aNum - bNum : bNum - aNum;
+        }
+        aVal = String(aVal).toLowerCase();
+        bVal = String(bVal).toLowerCase();
+        if (aVal < bVal) return sortDir === "asc" ? -1 : 1;
+        if (aVal > bVal) return sortDir === "asc" ? 1 : -1;
+        return 0;
+      });
+    }
+    return result;
+  }, [events, search, clubFilter, statusFilter, dateFrom, dateTo, sortKey, sortDir]);
 
   // Reset page when filters change
   const totalPages = Math.max(1, Math.ceil(filteredEvents.length / pageSize));
