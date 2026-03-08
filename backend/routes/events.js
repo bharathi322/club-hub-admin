@@ -18,6 +18,8 @@ router.get("/", auth, async (req, res) => {
 router.post("/", auth, async (req, res) => {
   try {
     const event = await Event.create(req.body);
+    // Notify students about the new event
+    notifyNewEvent(event);
     res.status(201).json(event);
   } catch (err) {
     res.status(500).json({ message: err.message });
