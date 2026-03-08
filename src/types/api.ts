@@ -128,3 +128,15 @@ export interface CalendarDayEvents {
   date: string;
   events: CalendarEvent[];
 }
+
+// Notifications
+export interface AppNotification {
+  _id: string;
+  user: string;
+  title: string;
+  description: string;
+  type: "info" | "warning" | "success";
+  read: boolean;
+  relatedEvent?: string;
+  createdAt: string;
+}

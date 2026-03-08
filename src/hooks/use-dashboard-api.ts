@@ -103,3 +103,7 @@ export const useFacultyFeedback = () =>
 
 export const useFacultyRegistrations = () =>
   useDemoAware<any[]>(["facultyRegistrations"], async () => (await api.get("/faculty/registrations")).data, []);
+
+// Notifications
+export const useNotifications = () =>
+  useDemoAware<AppNotification[]>(["notifications"], async () => (await api.get("/notifications")).data, mockNotifications);
