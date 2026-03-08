@@ -19,7 +19,10 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
           )}
           <header className="h-12 flex items-center justify-between border-b bg-card px-4 shrink-0">
             <SidebarTrigger className="mr-2" />
-            <NotificationBell />
+            <div className="flex items-center gap-2">
+              <NotificationBell />
+              <UserProfileDropdown />
+            </div>
           </header>
           <main className="flex-1 overflow-auto">
             {children}
