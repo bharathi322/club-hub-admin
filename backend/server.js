@@ -25,6 +25,7 @@ app.use("/api/complaints", complaintRoutes);
 app.use("/api/dashboard", dashboardRoutes);
 app.use("/api/student", studentRoutes);
 app.use("/api/faculty", facultyRoutes);
+app.use("/api/admin", adminRoutes);
 
 // Connect to MongoDB and start server
 const PORT = process.env.PORT || 5000;
