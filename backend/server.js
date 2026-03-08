@@ -11,6 +11,7 @@ const dashboardRoutes = require("./routes/dashboard");
 const studentRoutes = require("./routes/student");
 const facultyRoutes = require("./routes/faculty");
 const adminRoutes = require("./routes/admin");
+const notificationRoutes = require("./routes/notifications");
 
 const app = express();
 
