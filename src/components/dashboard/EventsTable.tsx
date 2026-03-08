@@ -143,14 +143,25 @@ const EventsTable = () => {
       <Card className="shadow-card">
         <CardHeader className="pb-3 flex flex-row items-center justify-between">
           <CardTitle className="text-base font-semibold">Events Overview</CardTitle>
-          <Button
-            size="sm"
-            variant="outline"
-            className="gap-1 h-7 text-xs"
-            onClick={() => { setEditingEvent(null); setFormOpen(true); }}
-          >
-            <Plus className="h-3 w-3" /> Add Event
-          </Button>
+          <div className="flex gap-2">
+            <Button
+              size="sm"
+              variant="outline"
+              className="gap-1 h-7 text-xs"
+              onClick={exportToCSV}
+              disabled={!filteredEvents.length}
+            >
+              <Download className="h-3 w-3" /> Export CSV
+            </Button>
+            <Button
+              size="sm"
+              variant="outline"
+              className="gap-1 h-7 text-xs"
+              onClick={() => { setEditingEvent(null); setFormOpen(true); }}
+            >
+              <Plus className="h-3 w-3" /> Add Event
+            </Button>
+          </div>
         </CardHeader>
         <CardContent className="space-y-4">
           {/* Filters */}
