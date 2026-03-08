@@ -75,6 +75,26 @@ const FacultyAttendance = () => {
   const isLoading = eventsLoading || regsLoading;
   const isBusy = markAttendance.isPending || bulkMark.isPending;
 
+  const handleExportCSV = () => {
+    if (!filtered.length) return;
+    const headers = ["Student", "Email", "Event", "Status"];
+    const rows = filtered.map((r: any) => [
+      r.student?.name ?? "—",
+      r.student?.email ?? "—",
+      r.event?.name ?? "—",
+      r.status,
+    ]);
+    const csv = [headers, ...rows].map((row) => row.map((v: string) => `"${v}"`).join(",")).join("\n");
+    const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `attendance-report${selectedEvent !== "all" ? `-${events?.find((e: any) => e._id === selectedEvent)?.name ?? selectedEvent}` : ""}.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
+    toast({ title: "CSV exported successfully" });
+  };
+
   return (
     <div className="p-6 space-y-6">
       <div className="flex items-center justify-between flex-wrap gap-4">
