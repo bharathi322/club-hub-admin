@@ -15,6 +15,7 @@ import {
   mockFacultyStats,
   mockFacultyEvents,
   mockFeedback,
+  mockNotifications,
 } from "@/lib/mock-data";
 import type {
   Club,
@@ -29,6 +30,7 @@ import type {
   EventRegistration,
   FacultyStats,
   Feedback,
+  AppNotification,
 } from "@/types/api";
 
 function useDemoAware<T>(queryKey: string[], apiFn: () => Promise<T>, mockData: T) {
@@ -101,3 +103,7 @@ export const useFacultyFeedback = () =>
 
 export const useFacultyRegistrations = () =>
   useDemoAware<any[]>(["facultyRegistrations"], async () => (await api.get("/faculty/registrations")).data, []);
+
+// Notifications
+export const useNotifications = () =>
+  useDemoAware<AppNotification[]>(["notifications"], async () => (await api.get("/notifications")).data, mockNotifications);
