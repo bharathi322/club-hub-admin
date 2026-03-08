@@ -18,6 +18,9 @@ import { format } from "date-fns";
 import { cn } from "@/lib/utils";
 import type { Event } from "@/types/api";
 
+type SortKey = "name" | "club" | "date" | "status" | "rating";
+type SortDir = "asc" | "desc";
+
 const statusVariant: Record<string, "default" | "secondary" | "destructive"> = {
   approved: "default",
   pending: "secondary",
