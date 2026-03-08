@@ -30,6 +30,7 @@ import type {
   EventRegistration,
   FacultyStats,
   Feedback,
+  AppNotification,
 } from "@/types/api";
 
 function useDemoAware<T>(queryKey: string[], apiFn: () => Promise<T>, mockData: T) {
