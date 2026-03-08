@@ -10,7 +10,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { useToast } from "@/hooks/use-toast";
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { CheckCircle, Users, CheckCheck } from "lucide-react";
+import { CheckCircle, Users, CheckCheck, Download } from "lucide-react";
 
 const FacultyAttendance = () => {
   const { data: events, isLoading: eventsLoading } = useFacultyEvents();
@@ -75,6 +75,26 @@ const FacultyAttendance = () => {
   const isLoading = eventsLoading || regsLoading;
   const isBusy = markAttendance.isPending || bulkMark.isPending;
 
+  const handleExportCSV = () => {
+    if (!filtered.length) return;
+    const headers = ["Student", "Email", "Event", "Status"];
+    const rows = filtered.map((r: any) => [
+      r.student?.name ?? "—",
+      r.student?.email ?? "—",
+      r.event?.name ?? "—",
+      r.status,
+    ]);
+    const csv = [headers, ...rows].map((row) => row.map((v: string) => `"${v}"`).join(",")).join("\n");
+    const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `attendance-report${selectedEvent !== "all" ? `-${events?.find((e: any) => e._id === selectedEvent)?.name ?? selectedEvent}` : ""}.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
+    toast({ title: "CSV exported successfully" });
+  };
+
   return (
     <div className="p-6 space-y-6">
       <div className="flex items-center justify-between flex-wrap gap-4">
@@ -93,6 +113,15 @@ const FacultyAttendance = () => {
               Mark {selectedIds.size} as Attended
             </Button>
           )}
+          <Button
+            variant="outline"
+            className="gap-2"
+            onClick={handleExportCSV}
+            disabled={!filtered.length}
+          >
+            <Download className="h-4 w-4" />
+            Export CSV
+          </Button>
           <Select value={selectedEvent} onValueChange={(v) => { setSelectedEvent(v); setSelectedIds(new Set()); }}>
             <SelectTrigger className="w-[220px]">
               <SelectValue placeholder="Filter by event" />
