@@ -15,6 +15,7 @@ import {
   mockFacultyStats,
   mockFacultyEvents,
   mockFeedback,
+  mockNotifications,
 } from "@/lib/mock-data";
 import type {
   Club,
