@@ -53,6 +53,14 @@ export const mockFacultyStats: FacultyStats = {
 
 export const mockFacultyEvents: Event[] = mockEvents.filter(e => e.club === "Robotics Club");
 
+export const mockFacultyRegistrations = [
+  { _id: "fr1", event: mockEvents[0], student: { _id: "s1", name: "Alice Johnson", email: "alice@college.edu" }, status: "registered" },
+  { _id: "fr2", event: mockEvents[0], student: { _id: "s2", name: "Bob Smith", email: "bob@college.edu" }, status: "registered" },
+  { _id: "fr3", event: mockEvents[0], student: { _id: "s3", name: "Carol Davis", email: "carol@college.edu" }, status: "attended" },
+  { _id: "fr4", event: mockEvents[0], student: { _id: "s4", name: "David Lee", email: "david@college.edu" }, status: "registered" },
+  { _id: "fr5", event: mockEvents[0], student: { _id: "s5", name: "Eva Martinez", email: "eva@college.edu" }, status: "registered" },
+];
+
 export const mockFeedback: { clubFeedback: Feedback[]; eventFeedback: Feedback[] } = {
   clubFeedback: [
     { _id: "f1", student: { _id: "s1", name: "Alice Johnson" }, targetType: "club", targetId: "c1", rating: 5, comment: "Amazing club!", createdAt: "2026-03-06T10:00:00Z" },
