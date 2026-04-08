@@ -1,17 +1,10 @@
 import { useState } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useClubs, useAdminClubEvents } from "@/hooks/use-dashboard-api";
-import { CalendarDays, Clock, Image, FileText, DollarSign, ExternalLink, FolderOpen } from "lucide-react";
-import { motion } from "framer-motion";
-import type { Event } from "@/types/api";
-
-const API_BASE = import.meta.env.VITE_API_URL?.replace("/api", "") || "http://localhost:5000";
-
-const getFileUrl = (path: string) => `${API_BASE}${path}`;
+import { FolderOpen } from "lucide-react";
+import { EventDocCard } from "@/components/documents/EventDocCard";
 
 const ClubDocuments = () => {
   const { data: clubs, isLoading: clubsLoading } = useClubs();
@@ -79,124 +72,6 @@ const ClubDocuments = () => {
         </>
       )}
     </div>
-  );
-};
-
-const EventDocCard = ({ event, index }: { event: Event; index: number }) => {
-  const hasPhotos = (event.photos?.length ?? 0) > 0;
-  const hasDocs = (event.documents?.length ?? 0) > 0;
-  const hasBudgetProof = (event.budgetProof?.length ?? 0) > 0;
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: index * 0.05 }}
-    >
-      <Card className="shadow-card">
-        <CardHeader className="pb-2">
-          <div className="flex items-start justify-between">
-            <CardTitle className="text-base">{event.name}</CardTitle>
-            <Badge variant={event.status as any} className="capitalize">{event.status}</Badge>
-          </div>
-          <div className="flex gap-3 text-xs text-muted-foreground mt-1">
-            <span className="flex items-center gap-1"><CalendarDays className="h-3 w-3" /> {event.date}</span>
-            <span className="flex items-center gap-1"><Clock className="h-3 w-3" /> {event.time}</span>
-          </div>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          {(event.budgetUsed ?? 0) > 0 && (
-            <div className="flex items-center gap-2 text-sm">
-              <DollarSign className="h-4 w-4 text-muted-foreground" />
-              <span className="text-foreground font-medium">Budget Used: ₹{event.budgetUsed?.toLocaleString()}</span>
-            </div>
-          )}
-
-          {/* Photos */}
-          {hasPhotos && (
-            <div className="space-y-2">
-              <h4 className="text-sm font-medium flex items-center gap-1.5">
-                <Image className="h-3.5 w-3.5" /> Photos ({event.photos!.length})
-              </h4>
-              <div className="grid grid-cols-3 gap-2">
-                {event.photos!.map((photo, j) => (
-                  <a key={j} href={getFileUrl(photo)} target="_blank" rel="noopener noreferrer" className="block">
-                    <img
-                      src={getFileUrl(photo)}
-                      alt={`Event photo ${j + 1}`}
-                      className="w-full h-20 object-cover rounded-md border hover:opacity-80 transition-opacity"
-                    />
-                  </a>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* Documents */}
-          {hasDocs && (
-            <div className="space-y-2">
-              <h4 className="text-sm font-medium flex items-center gap-1.5">
-                <FileText className="h-3.5 w-3.5" /> Documents ({event.documents!.length})
-              </h4>
-              <div className="space-y-1">
-                {event.documents!.map((doc, j) => (
-                  <a
-                    key={j}
-                    href={getFileUrl(doc)}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2 text-xs text-primary hover:underline p-1.5 rounded-md hover:bg-accent transition-colors"
-                  >
-                    <FileText className="h-3.5 w-3.5 shrink-0" />
-                    <span className="truncate">{doc.split("/").pop()}</span>
-                    <ExternalLink className="h-3 w-3 shrink-0 ml-auto" />
-                  </a>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* Budget Proofs */}
-          {hasBudgetProof && (
-            <div className="space-y-2">
-              <h4 className="text-sm font-medium flex items-center gap-1.5">
-                <DollarSign className="h-3.5 w-3.5" /> Budget Proofs ({event.budgetProof!.length})
-              </h4>
-              <div className="space-y-1">
-                {event.budgetProof!.map((proof, j) => {
-                  const isImage = /\.(jpg|jpeg|png|gif|webp)$/i.test(proof);
-                  return isImage ? (
-                    <a key={j} href={getFileUrl(proof)} target="_blank" rel="noopener noreferrer" className="block">
-                      <img
-                        src={getFileUrl(proof)}
-                        alt={`Budget proof ${j + 1}`}
-                        className="w-full h-20 object-cover rounded-md border hover:opacity-80 transition-opacity"
-                      />
-                    </a>
-                  ) : (
-                    <a
-                      key={j}
-                      href={getFileUrl(proof)}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-2 text-xs text-primary hover:underline p-1.5 rounded-md hover:bg-accent transition-colors"
-                    >
-                      <FileText className="h-3.5 w-3.5 shrink-0" />
-                      <span className="truncate">{proof.split("/").pop()}</span>
-                      <ExternalLink className="h-3 w-3 shrink-0 ml-auto" />
-                    </a>
-                  );
-                })}
-              </div>
-            </div>
-          )}
-
-          {!hasPhotos && !hasDocs && !hasBudgetProof && (
-            <p className="text-xs text-muted-foreground text-center py-4">No files uploaded for this event yet.</p>
-          )}
-        </CardContent>
-      </Card>
-    </motion.div>
   );
 };
 
