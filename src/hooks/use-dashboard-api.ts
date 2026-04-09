@@ -155,5 +155,12 @@ export const useLiveAttendance = (eventId: string) =>
     queryKey: ["liveAttendance", eventId],
     queryFn: async () => (await api.get(`/attendance/${eventId}/live`)).data,
     enabled: !!eventId,
-    refetchInterval: 5000, // Poll every 5s as fallback
+    refetchInterval: 5000,
+  });
+
+// Leaderboard
+export const useStudentLeaderboard = () =>
+  useQuery<LeaderboardStudent[]>({
+    queryKey: ["studentLeaderboard"],
+    queryFn: async () => (await api.get("/leaderboard/students")).data,
   });

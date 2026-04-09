@@ -204,7 +204,3 @@ export interface QRScanResponse {
   event: { _id: string; name: string; club: string };
   status: string;
 }
-  message: string;
-  event: { _id: string; name: string; club: string };
-  status: string;
-}
