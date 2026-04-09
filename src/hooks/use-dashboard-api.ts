@@ -17,6 +17,7 @@ import type {
   ClubEventsResponse,
   BudgetOverviewItem,
   LiveAttendanceData,
+  LeaderboardStudent,
 } from "@/types/api";
 
 // Admin hooks

@@ -188,7 +188,22 @@ export interface LiveAttendanceData {
 }
 
 // QR scan response
+// Student Leaderboard
+export interface LeaderboardStudent {
+  _id: string;
+  name: string;
+  email: string;
+  eventsAttended: number;
+  feedbackGiven: number;
+  photosContributed: number;
+  score: number;
+}
+
 export interface QRScanResponse {
+  message: string;
+  event: { _id: string; name: string; club: string };
+  status: string;
+}
   message: string;
   event: { _id: string; name: string; club: string };
   status: string;
