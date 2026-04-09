@@ -6,9 +6,9 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { useStudentLeaderboard } from "@/hooks/use-dashboard-api";
 
 const rankIcon = (rank: number) => {
-  if (rank === 1) return <Trophy className="h-5 w-5 text-yellow-500" />;
-  if (rank === 2) return <Medal className="h-5 w-5 text-gray-400" />;
-  if (rank === 3) return <Award className="h-5 w-5 text-amber-600" />;
+  if (rank === 1) return <Trophy className="h-5 w-5 text-primary" />;
+  if (rank === 2) return <Medal className="h-5 w-5 text-muted-foreground" />;
+  if (rank === 3) return <Award className="h-5 w-5 text-accent-foreground" />;
   return <span className="text-sm font-medium text-muted-foreground">#{rank}</span>;
 };
 
