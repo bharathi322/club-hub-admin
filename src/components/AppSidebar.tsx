@@ -15,6 +15,7 @@ import {
   QrCode,
   IndianRupee,
   ScanLine,
+  Trophy,
 } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 import { useLocation } from "react-router-dom";
@@ -42,6 +43,7 @@ const adminNav = [
   { title: "Events", url: "/events", icon: CalendarDays },
   { title: "Faculty", url: "/faculty-assignment", icon: GraduationCap },
   { title: "Documents", url: "/club-documents", icon: FolderOpen },
+  { title: "Leaderboard", url: "/leaderboard", icon: Trophy },
   { title: "Reports", url: "/reports", icon: FileText },
   { title: "Settings", url: "/settings", icon: Settings },
 ];
