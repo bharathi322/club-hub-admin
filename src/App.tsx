@@ -15,6 +15,7 @@ import Settings from "./pages/Settings";
 import Login from "./pages/Login";
 import FacultyAssignment from "./pages/FacultyAssignment";
 import ClubDocuments from "./pages/ClubDocuments";
+import StudentLeaderboard from "./pages/StudentLeaderboard";
 import NotFound from "./pages/NotFound";
 
 // Student pages
@@ -63,6 +64,7 @@ const App = () => (
             <Route path="/settings" element={<ProtectedRoute><RoleRoute allowedRoles={["admin"]}><DashboardLayout><Settings /></DashboardLayout></RoleRoute></ProtectedRoute>} />
             <Route path="/faculty-assignment" element={<ProtectedRoute><RoleRoute allowedRoles={["admin"]}><DashboardLayout><FacultyAssignment /></DashboardLayout></RoleRoute></ProtectedRoute>} />
             <Route path="/club-documents" element={<ProtectedRoute><RoleRoute allowedRoles={["admin"]}><DashboardLayout><ClubDocuments /></DashboardLayout></RoleRoute></ProtectedRoute>} />
+            <Route path="/leaderboard" element={<ProtectedRoute><RoleRoute allowedRoles={["admin"]}><DashboardLayout><StudentLeaderboard /></DashboardLayout></RoleRoute></ProtectedRoute>} />
 
             {/* Student routes */}
             <Route path="/student/events" element={<ProtectedRoute><RoleRoute allowedRoles={["student"]}><DashboardLayout><StudentEvents /></DashboardLayout></RoleRoute></ProtectedRoute>} />

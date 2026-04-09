@@ -17,6 +17,7 @@ const facultyRoutes = require("./routes/faculty");
 const adminRoutes = require("./routes/admin");
 const notificationRoutes = require("./routes/notifications");
 const attendanceRoutes = require("./routes/attendance");
+const leaderboardRoutes = require("./routes/leaderboard");
 
 const app = express();
 const server = http.createServer(app);
@@ -59,6 +60,7 @@ app.use("/api/faculty", facultyRoutes);
 app.use("/api/admin", adminRoutes);
 app.use("/api/notifications", notificationRoutes);
 app.use("/api/attendance", attendanceRoutes);
+app.use("/api/leaderboard", leaderboardRoutes);
 
 // Connect to MongoDB and start server
 const PORT = process.env.PORT || 5000;
